@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--<link rel="stylesheet" type ="text/css" href="../src/assets/style.css">-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Register</title>
+</head>
+<body class="container-fluid">
+    <form id="studentReg" mothod="post" v-on:submit.prevent>
+        <div class="register">
+            <div class="form-group">
+                <h1>Student Sign-up</h1>
+                <label for="s-username">Username </label>
+                <input required type="text" id="s-username" v-model='username' placeholder="username">
+            </div>
+
+            <div class="form-group">
+                <label for="s-email">email </label>
+                <input required type="email" id="s-email" v-model='email' placeholder="email">
+            </div>
+
+            <div class="form-group">
+                <label for="s-password">password </label>
+                <input required type="password" id="s-password" v-model='password' placeholder="password">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" v-on:click="onSubmit" class="btn btn-success" id="bts-nSubmit">submit</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+         new Vue({
+            el: '#studentReg',
+            data: {
+                username: '',
+                email: '',
+                password: '',
+            },
+            methods: {
+                onSubmit: function () {
+                    // this is to check if the email already exists
+                    var Student = '';
+                    var newUsername = this.username;
+                    var newName = this.name;
+                    var newEmail = this.email;
+                    if (localStorage.getItem('Student')) { // 'Student' is an array of objects
+                        Student = JSON.parse(localStorage.getItem('Student'));
+                    }
+                    if (Student) {
+                        if (Student.some(function (Student) {
+                            return Student.email === newEmail
+                        })) {
+                            alert('Email or username already exists!');
+                            return;
+                        }
+                        Student.push({'username':newUsername, 'name':newName,'email': newEmail, 'password': this.password});
+                        localStorage.setItem('Student', JSON.stringify(Student));
+                        window.location.replace ("Subject.html");
+                        alert("welcome to AFTER SCHOOL EXTRAS ")
+                        return false;
+
+                    }
+                    else {
+                        Student = [{'username':newUsername, 'name':newName,'email': newEmail, 'password': this.password}];
+                        localStorage.setItem('Student', JSON.stringify(Student));
+                    }
+                }
+            }
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
