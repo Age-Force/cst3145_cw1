@@ -9,6 +9,7 @@ var signupApp = new Vue({
         email: '',
         password: '',
     },
+    
     methods: {
         onSubmit: function () {
             // this is to check if the email already exists

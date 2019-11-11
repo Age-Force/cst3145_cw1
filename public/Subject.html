@@ -4,12 +4,13 @@
     <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" type ="text/css" href="../src/assets/style.css">
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <title>Login</title>
+        <title>Activities</title>
     </head>
 </head>
 <body class="container-fluid">
@@ -31,8 +32,8 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         User Sign-Up</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="studentsignup.html">Student</a>
-                        <a class="dropdown-item" href="parentsignup.html">Parent</a>
+                        <a class="dropdown-item" href="#">Student</a>
+                        <a class="dropdown-item" href="#">Parent</a>
                     </div>
                 </li>
             </ul>
@@ -53,5 +54,79 @@
             </ul>
         </div>
     </nav>
+    <div id="filter">         
+        <h1>Filters</h1>
+        <select multiple v-model='selectedTopic'>
+        <option v-for='topic in topics'>
+        {{topic}}
+        </option>
+        </select>
+        <p>Selected topics: {{selectedTopic}}</p>
+        <!-- <br> -->
+        <select multiple v-model='selectedLocation'>
+        <option v-for="location in locations">{{location}}</option>
+        </select>
+        <p>Selected location: {{selectedLocation}}</p>
+    </div>
+    <button>reset</button>
+    <div id="courseList">
+        <h1>Course list</h1>
+        <div v-for="course in filteredCourses" class="course">
+            <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
+        </div>
+    </div>   
+
+    <script>
+        var courses = [
+            { 'topic': 'Math', 'location': 'Birgu', 'price': 100 },
+            { 'topic': 'Biology', 'location': 'Bormla', 'price': 80 },
+            { 'topic': 'English', 'location': 'Mdina', 'price': 90 },
+            { 'topic': 'Gaming', 'location': 'Qormi', 'price': 120 },
+            { 'topic': 'Dance', 'location': 'Rabat', 'price': 110 },
+            { 'topic': 'Music', 'location': 'Senglea', 'price': 90 },
+            { 'topic': 'Sports', 'location': 'Siggiewi', 'price': 90 },
+            { 'topic': 'Art', 'location': 'Valleta', 'price': 130 },
+            { 'topic': 'Athletics', 'location': 'Zabbar', 'price': 120 },
+            { 'topic': 'Choir', 'location': 'Zebbug', 'price': 140 },
+            { 'topic': 'Band', 'location': 'Zejtun', 'price': 120 },
+            { 'topic': 'Fan Club', 'location': 'Birkikara', 'price': 140 },
+            { 'topic': 'Debate', 'location': 'll-Marsa', 'price': 120 },
+            { 'topic': 'Yearbook', 'location': 'in-Naxxar', 'price': 140 }
+            ]
+            filterApp = new Vue
+            ({
+                el: '#filter',
+                data:
+                {
+                    courses: courses,
+                    selectedTopic: [],
+                    selectedLocation: [],
+                },
+                computed: 
+                {
+                    topics: function () { // return an array of all the topics
+                    return [...new Set(this.courses.map(x => x.topic))]
+                    },
+                    locations: function () 
+                    {
+                    return [...new Set(this.courses.map(x => x.location))]
+                    }
+                }
+             })   
+    </script>
+    
+    <style>
+        .course {
+            border: solid lightblue;
+            /* width: 150px; */
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
