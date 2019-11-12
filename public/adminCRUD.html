@@ -8,7 +8,7 @@
     <title>Title</title>
 </head>
 <body>
-    <div id="crud">
+    <div id="app">
         <v-app class="gray">
              <v-content>
                  <v-contianer>
@@ -33,22 +33,21 @@
                         </v-flex>
                         <v-flex xs6>
                             <v-flex xs12 v-for="(activity,adminCRUD) in activity">
-                                <v-card class="mb-3">
-                                    <v-card-title primary-title>
-                                        <div>
-                                            <h3 class="headline mb-0">Activity: {{activity.activity}}</h3>
-                                            <div>Location: {{activity.location}}</div>
-                                        </div>
-                                    </v-card-title>
-                                    <v-card-actions v-if="edit==false">
-                                        <v-btn color="warning" @click="editActivity(activity, adminCRUD)">Edit</v-btn>
-                                        <v-btn color="error" @click="deleteActivity(adminCRUD)">Delete</v-btn>
-                                    </v-card-actions>
-                                    <v-card-actions v-if="edit!==false">
-                                        <v-btn disabled color="warning"> Edit</v-btn>
-                                        <v-btn disable color="error">Delete</v-btn>
-                                    </v-card-actions>
-                                </v-card>
+                                <v-card-title primary-title>
+                                    <div>
+                                        <h3 class="headline mb-0">Activity: {{activity.activity}}</h3>
+                                        <div>Location: {{activity.location}}</div>
+                                    </div>
+                                </v-card-title>
+                                <v-card-actions v-if="edit==false">
+                                    <v-btn color="warning" @click="editActivity(activity, adminCRUD)">Edit</v-btn>
+                                    <v-btn color="error" @click="deleteActivity(adminCRUD)">Delete</v-btn>
+                                </v-card-actions>
+                                <v-card-actions v-if="edit!==false">
+                                    <button v-on:click="onsubmit">Add</button>
+                                    <v-btn disabled color="warning"> Edit</v-btn>
+                                    <v-btn disable color="error">Delete</v-btn>
+                                </v-card-actions>
                             </v-flex>
                         </v-flex>
                      </v-layout>
@@ -57,75 +56,8 @@
         </v-app>
     </div>
 
-    <script>
-       new  Vue({
-            el: '#crud',
-            data:{
-                activity: '',
-                location: '',
-                price: '',
-                edit:false,
-                delete:false,
-                cancel:false,
-                id2:0,
-                ind:0,
-                activity:[]
-            },
-            method:{
-                addActivity:function (a,l,p) {
-                    a.preventDefault();
-                    this.activity.push({
-                        activity: this.activity,
-                        location: this.location,
-                        price: this.price
-                    });
-                    localStorage.setItem('activity', JSON.stringify((activity)));
-                        this.activity='';
-                        this.location='';
-                },
-                editActivity:function (l,d) {
-                    this.edit=!this.edit;
-                    this.activity=l.activity;
-                    this.location=l.location;
-                    this.price=l.price;
-                    this.ind=d;
-                },
-                updateActivity:function(a){
-                    a.preventDefault();
-                    this.edit=!this.edit;
-                    let activitydb={
-                        activity:this.activity,
-                        location:this.location,
-                        price: this.price
-                    }
-                    this.activity[this.ind]=activitydb;
-                    localStorage.setItem('activity', JSON.stringify(activity));
-                    let activityDB = JSON.parse(localStorage.getItem('activity'));
-                    this.activity= activityDB;
-                    this.activity='';
-                    this.location='';
-                    this.price='';
-                },
-                cancelActivity:function (a){
-                    a.preventDefault();
-                    this.activity='';
-                    this.location='';
-                    this.price='';
-                    this.edit=!this.editActivity;
-                },
-                deleteActivity:function (d) {
-                    this.activity.splice(d, 1);
-                    localStorage.setItem('activity', JSON.stringify('activity'));
-                    if(activityDB === null){
-                        this.activity=[];
-                    } else{
-                        this.activity=activityDB;
-                    }
-                }
-            }
-        });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script src="../src/search.js"></script>
 </body>
 </html>
