@@ -1,13 +1,14 @@
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../src/assets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type ="text/css" href="../src/assets/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     <title>Search</title>
 </head>
 <body class="container-fluid">
@@ -49,22 +50,21 @@
               </li>
           </ul>
       </div>
-    </nav>  
+    </nav>
     <div id="app">
-
         <div class="panel panel-default">
             <div class="panel-heading" style="font-weight:bold"><span class="glyphicon glyphicon-align-justify"></span> All Resources</div>
             <div class="row">
                 <div class="search-wrapper panel-heading col-sm-12">
                     <input class="form-control" type="text" v-model="searchQuery" placeholder="Search" />
-                </div>                        
+                </div>
             </div>
             <div class="panel-body" style="max-height: 400px;overflow-y: scroll;">
                 <table v-if="resources.length" class="table">
                     <thead>
                         <tr>
                             <th>Activities</th>
-                            <th>Locatons</th>
+                            <th>Locations</th>
                             <th>Price</th>
                         </tr>
                     </thead>
@@ -79,44 +79,43 @@
             </div>
         </div>
         </div>
-    </div> 
+    </div>
 
     <script>
-        new Vue({
-  el: '#app',
-  data() {
-    return {
-      searchQuery:'',
-    resources:[
-    { 'title': 'Remedial Classes', 'location': 'Birgu', 'price': 100 },
-    { 'title': 'Gaming', 'location': 'Qormi', 'price': 30 },
-    { 'title': 'Dance', 'location': 'Rabat', 'price': 50 },
-    { 'title': 'Music', 'location': 'Senglea', 'price': 50 },
-    { 'title': 'Sports', 'location': 'Siggiewi', 'price': 90 },
-    { 'title': 'Art', 'location': 'Valleta', 'price': 45 },
-    { 'title': 'Athletics', 'location': 'Zabbar', 'price': 110 },
-    { 'title': 'Choir', 'location': 'Zebbug', 'price': 10 },
-    { 'title': 'Band', 'location': 'Zejtun', 'price': 25 },
-    { 'title': 'Fan Club', 'location': 'Birkikara', 'price': 5 },
-    { 'title': 'Debate', 'location': 'll-Marsa', 'price': 5 },
-    { 'title': 'Yearbook', 'location': 'in-Naxxar', 'price': 5 }
-    ]
-    };
-  },
-  computed: {
-    filteredResources (){
-      if(this.searchQuery){
-      return this.resources.filter((item)=>{
-        return item.title.startsWith(this.searchQuery);
-      })
-      }else{
-        return this.resources;
-      }
-    }
-  }
- 
-
-})
+        new Vue
+        ({
+          el: '#app',
+          data() {
+            return {
+                searchQuery:'',
+            resources:[
+                { 'title': 'Remedial Classes', 'location': 'Birgu', 'price': 100 },
+                { 'title': 'Gaming', 'location': 'Qormi', 'price': 30 },
+                { 'title': 'Dance', 'location': 'Rabat', 'price': 50 },
+                { 'title': 'Music', 'location': 'Senglea', 'price': 50 },
+                { 'title': 'Sports', 'location': 'Siggiewi', 'price': 90 },
+                { 'title': 'Art', 'location': 'Valleta', 'price': 45 },
+                { 'title': 'Athletics', 'location': 'Zabbar', 'price': 110 },
+                { 'title': 'Choir', 'location': 'Zebbug', 'price': 10 },
+                { 'title': 'Band', 'location': 'Zejtun', 'price': 25 },
+                { 'title': 'Fan Club', 'location': 'Birkikara', 'price': 5 },
+                { 'title': 'Debate', 'location': 'll-Marsa', 'price': 5 },
+                { 'title': 'Yearbook', 'location': 'in-Naxxar', 'price': 5 }
+                ]
+                };
+          },
+          computed: {
+            filteredResources (){
+              if(this.searchQuery){
+              return this.resources.filter((item)=>{
+                return item.title.startsWith(this.searchQuery);
+              })
+              }else{
+                return this.resources;
+              }
+            }
+          }
+        })
     </script>
 </body>
 </html>

@@ -1,21 +1,27 @@
+*{
+  box-sizing: border-box;
+}
+
 .selector-for-some-widget {
-    box-sizing: content-box;
+  box-sizing: content-box;
+}
+.logo {
+  width: 50px;
+  float: left;
+  margin-right: 15px;
+}
+
+.form-group {
+  max-width: 500px;
+}
+
+.actions {
+  padding: 10px 0;
+}
+
+.glyphicon-euro {
+  font-size: 12px;
+}
+  body{
+    background-color:#7a7aaf;
   }
-  .logo {
-    width: 50px;
-    float: left;
-    margin-right: 15px;
-  }
-  
-  .form-group {
-    max-width: 500px;
-  }
-  
-  .actions {
-    padding: 10px 0;
-  }
-  
-  .glyphicon-euro {
-    font-size: 12px;
-  }
-  
