@@ -8,11 +8,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" type ="text/css" href="../src/assets/style.css">
+        <link rel="stylesheet" type ="text/css" href="style.css">
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-        <title>Activities</title>
     </head>
+    <title>Activities</title>
 </head>
 <body class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -33,8 +33,8 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         User Sign-Up</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Student</a>
-                        <a class="dropdown-item" href="#">Parent</a>
+                        <a class="dropdown-item" href="studentsignup.html">Student</a>
+                        <a class="dropdown-item" href="parentsignup.html">Parent</a>
                     </div>
                 </li>
             </ul>
@@ -55,77 +55,71 @@
             </ul>
         </div>
     </nav>
-    <div id="filter">         
-        <h1>Filters</h1>
-        <select multiple v-model='selectedTopic'>
-        <option v-for='topic in topics'>
-        {{topic}}
-        </option>
-        </select>
-        <p>Selected topics: {{selectedTopic}}</p>
-        <!-- <br> -->
-        <select multiple v-model='selectedLocation'>
-        <option v-for="location in locations">{{location}}</option>
-        </select>
-        <p>Selected location: {{selectedLocation}}</p>
-    </div>
-    <button>reset</button>
-    <div id="courseList">
-        <h1>Course list</h1>
-        <div v-for="course in filteredCourses" class="course">
-            <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
+    <div class="container mt-5" id="app">
+        <h3 class="text-center"><i class="fas fa-dumbbell"></i> {{ title }}</h3>
+        <div class="row">
+            <div class="col-md-4 offset-md-4 my-4">
+                <div class="card-header">
+                    <div class="form-group">
+                        <label>
+                            <input type="text" class="form-control my-3" v-model="newTask" v-on:keyup.enter="addTask">
+                        </label>
+                    </div>
+                    <button class="btn btn-primary btn-block" @click="addTask">Add</button>
+                    <div class="card-body" v-for="(item, index) of task">
+                        <div role="alert" :class="['alert', item.state ? 'alert-success' : 'alert-danger']">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <i class="fas fa-running"></i> {{item.name}}
+                                </div>
+                                <div>
+                                    <button class="btn btn-success btn-sm" @click="editTask(index)">OK</button>
+                                    <button class="btn btn-danger btn-sm" @click="deleteTask(index)">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>   
-
+    </div>
     <script>
-        var courses = [
-            { 'topic': 'Math', 'location': 'Birgu', 'price': 100 },
-            { 'topic': 'Biology', 'location': 'Bormla', 'price': 80 },
-            { 'topic': 'English', 'location': 'Mdina', 'price': 90 },
-            { 'topic': 'Gaming', 'location': 'Qormi', 'price': 120 },
-            { 'topic': 'Dance', 'location': 'Rabat', 'price': 110 },
-            { 'topic': 'Music', 'location': 'Senglea', 'price': 90 },
-            { 'topic': 'Sports', 'location': 'Siggiewi', 'price': 90 },
-            { 'topic': 'Art', 'location': 'Valleta', 'price': 130 },
-            { 'topic': 'Athletics', 'location': 'Zabbar', 'price': 120 },
-            { 'topic': 'Choir', 'location': 'Zebbug', 'price': 140 },
-            { 'topic': 'Band', 'location': 'Zejtun', 'price': 120 },
-            { 'topic': 'Fan Club', 'location': 'Birkikara', 'price': 140 },
-            { 'topic': 'Debate', 'location': 'll-Marsa', 'price': 120 },
-            { 'topic': 'Yearbook', 'location': 'in-Naxxar', 'price': 140 }
-            ]
-            filterApp = new Vue
-            ({
-                el: '#filter',
-                data:
-                {
-                    courses: courses,
-                    selectedTopic: [],
-                    selectedLocation: [],
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'Activities Log',
+                task: [],
+                newTask: ''
+            },
+            methods: {
+                addTask: function() {
+                    this.task.push({
+                        name: this.newTask,
+                        state: false
+                    });
+                    this.newTask = '';
+                    localStorage.setItem('gym-vue', JSON.stringify(this.task));
                 },
-                computed: 
-                {
-                    topics: function () { // return an array of all the topics
-                    return [...new Set(this.courses.map(x => x.topic))]
-                    },
-                    locations: function () 
-                    {
-                    return [...new Set(this.courses.map(x => x.location))]
-                    }
+                editTask: function(index){
+                    this.task[index].state = true;
+                    localStorage.setItem('gym-vue', JSON.stringify(this.task));
+                },
+                deleteTask: function(index){
+                    this.task.splice(index, 1);
+                    localStorage.setItem('gym-vue', JSON.stringify(this.task));
                 }
-             })   
-    </script>
-    
-    <style>
-        .course {
-            border: solid lightblue;
-            /* width: 150px; */
-            display: inline-block;
-            margin: 10px;
-            padding: 10px;
+            },
+            created: function(){
+                let dataDB = JSON.parse(localStorage.getItem('gym-vue'))
+                if(dataDB === null){
+                    this.task = [];
+                } else {
+                    this.task = dataDB;
+                }
             }
-    </style>
-
+        });
+    </script>
+    <script src="../src/crudVue.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

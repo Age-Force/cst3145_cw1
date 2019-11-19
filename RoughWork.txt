@@ -131,3 +131,71 @@
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+to add activities.
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
+
+    <style>
+      .completed { text-decoration: line-through; }
+    </style>
+
+    <title>Simplest Vue Todo App with LocalStorage</title>
+  </head>
+  <body>
+    <div class="container mt-3 mt-sm-5" id="app">
+      <input class="form-control" placeholder="New item" v-model="newTodo" @keydown.enter="addTodo">
+      <ul class="list-unstyled">
+        <li v-for="todo in todos" :class="{ completed: todo.completed }">
+          <input type="checkbox" v-model="todo.completed">
+          {{ todo.text }}
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          newTodo: '',
+          todos: [],
+        },
+        methods: {
+          addTodo() {
+            this.todos.push({ text: this.newTodo, completed: false });
+            this.newTodo = '';
+          },
+        },
+        mounted() {
+          console.log('App mounted!');
+          if (localStorage.getItem('todos')) this.todos = JSON.parse(localStorage.getItem('todos'));
+        },
+        watch: {
+          todos: {
+            handler() {
+              console.log('Todos changed!');
+              localStorage.setItem('todos', JSON.stringify(this.todos));
+            },
+            deep: true,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

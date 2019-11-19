@@ -2,32 +2,64 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Vue.js CRUD application</title>
+    <title>Activities</title>
     <meta name="description" content="">
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="../public/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
-  <body>
-    <div class="container">
+  <body class="container-fluid">
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">AFTER SCHOOL EXTRAS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Activities</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                User Sign-Up</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="../public/studentsignup.html">Student</a>
+                <a class="dropdown-item" href="../public/parentsignup.html">Parent</a>
+              </div>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="../public/register.html">Admin</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../public/login.html">Log-In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" tabindex="0">LogOut</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <div id="app">
         <section class="todo-wrapper">
           <h1 class="todo-title">{{ today.day }}<br>{{ today.date }}</h1>
           <form @keydown.enter.prevent="">
             <label>
-              <input type="text" class="input-todo" v-bind:class="{ active: new_todo }" placeholder="add activities" v-model="new_todo" v-on:keyup.enter="addItem">
-            </label>
-            <label>
-              <input type="text" class="input-todo" v-bind:class="{ active: new_todo }" placeholder="add location" v-model="new_todo" v-on:keyup.enter="addLocation">
-            </label>
-            <label>
-              <input type="text" class="input-todo" v-bind:class="{ active: new_todo }" placeholder="add price &euro;" v-model="new_todo" v-on:keyup.enter="addItem">
+              <input type="text" class="input-todo" v-bind:class="{ active: new_todo }" placeholder="Take the garbage out" v-model="new_todo" v-on:keyup.enter="addItem">
             </label>
             <div class="btn btn-add" v-bind:class="{ active: new_todo }"  @click="addItem">+</div>
           </form>
-
           <div v-if="pending.length > 0">
             <p class="status busy">You have {{ pending.length }} pending item<span v-if="pending.length>1">s</span></p>
             <transition-group name="todo-item" tag="ul" class="todo-list">
@@ -48,6 +80,7 @@
 
           <div v-if="completed.length > 0 && showComplete">
             <p class="status">Completed tasks: {{ completedPercentage }}</p>
+
             <transition-group name="todo-item" tag="ul" class="todo-list archived">
               <li v-for="(item, index) in completed" v-bind:key="item.title">
                 <input class="todo-checkbox" v-bind:id="'item_' + item.id" v-model="item.done" type="checkbox">
@@ -65,16 +98,18 @@
       </div>
     </div>
 
-
-      <script>
+    <script>
         new Vue({
           el: '#app',
           data() {
             return {
               todoList: [
-                {"id":0,"title":"Go to codepen and get inspired","done":false},
-                {"id":1,"title":"Pick a project","done":false},
-                {"id":4,"title":"Create a new pen","done":true}
+                {"id":0,"title":"Gaming","done":false},
+                {"id":1,"title":"Sport","done":false},
+                {"id":2,"title":"Fan Club","done":false},
+                {"id":3,"title":"Jet Club","done":false},
+                {"id":4,"title":"Remedial Class","done":false},
+                {"id":5,"title":"Scout","done":true}
               ],
               new_todo: '',
               showComplete: false,
@@ -162,18 +197,19 @@
             }
           },
         });
-      </script>
+    
+    </script>
+
     <style>
       *{
         box-sizing: border-box;
       }
-
       body{
         font-size: 15px;
         font-family: 'Open Sans', sans-serif;
         color: #444;
         background-color: #fefefe;
-        background-image: linear-gradient(#fc6c48 0%, #ef5081 100%);
+        background-image: radial-gradient(circle, #bc7fa2, #af7da7, #9f7bac, #8e7bae, #7a7aaf, #6c81b6, #5c88ba, #4c8ebb, #429dc1, #42acc3, #4fb9c2, #64c6bf);
         background-repeat: no-repeat;
         background-size: cover;
         padding: 50px 20px;
@@ -181,7 +217,6 @@
         min-height: 100vh;
         position: relative;
       }
-
       .todo-wrapper{
         width: 400px;
         max-width: 100%;
@@ -196,23 +231,19 @@
         overflow: hidden;
         position: relative;
       }
-
       .todo-title{
         font-size: 1.2em;
         color: #f65c65;
         font-weight: normal;
       }
-
       form{
         overflow: auto;
       }
-
       form label{
         display: block;
         text-align: center;
         font-size: 1.2em;
       }
-
       .btn, input {
         line-height: 2em;
         border-radius: 3px;
@@ -222,23 +253,19 @@
         padding: 0.2em 1em;
         font-size: 1em;
       }
-
       input[type='text'] {
         border: 1px solid #ddd;
         min-width: 80%;
         transition: all ease-in 0.25s;
       }
-
       input:focus{
         outline: none;
         border: 1px solid #a3b1ff;
       }
-
       input::placeholder{
         color: rgba(0,0,0,0.3);
         font-style: italic;
       }
-
       .btn{
         text-align: center;
         font-weight: bold;
@@ -246,7 +273,6 @@
         border-width: 1px;
         border-style: solid;
       }
-
       .btn-add {
         background: #ddd;
         color: #fefefe;
@@ -259,18 +285,15 @@
         padding: 0.3em 0.3em;
         float: right;
       }
-
       .btn-add.active{
         background: #6664ff;
         border-color: #6664ff;
         pointer-events: visible;
       }
-
       .btn-add.active:hover{
         background: #4442f6;
         border-color: #4442f6;
       }
-
       .btn-add:active{
         transform: scale(0.95);
       }
@@ -289,7 +312,6 @@
         padding: 0;
         margin: 0 10px;
       }
-
       .btn-secondary:after{
         position: absolute;
         content: '';
@@ -300,17 +322,13 @@
         left: 0;
         transition: all ease-in 0.25s;
       }
-
       .btn-secondary:hover:after{
         width: 100%;
       }
-
-
       ul.todo-list{
         padding: 0;
         margin-bottom: 30px;
       }
-
       ul.todo-list li{
         position: relative;
         list-style-type: none;
@@ -324,18 +342,14 @@
         padding-right: 49px; /* delete button + 5 */
         overflow: hidden;
       }
-
       ul.todo-list.archived li{
         background: #fff;
       }
-
       .todo-text{
         position: relative;
         display: inline-block;
         padding: 0 0.5em;
       }
-
-
       ul.todo-list li .delete{
         position: absolute;
         height: 100%;
@@ -349,7 +363,6 @@
         color: #fff;
         transition: all ease-in 0.25s;
       }
-
       ul.todo-list li .delete:after{
         position: absolute;
         content: '';
@@ -364,22 +377,18 @@
         transform: translate(-50%, -50%) scale(0.5);
         transition: all ease-in 0.25s;
       }
-
       ul.todo-list li:hover .delete{
         width: 44px;
         opacity: 1;
       }
-
       ul.todo-list li:hover .delete:after{
         transform: translate(-50%, -50%) scale(1);
       }
-
       .todo-checkbox{
         position: absolute;
         opacity: 0;
         display: none;
       }
-
       .todo-checkbox + label {
         position: absolute;
         cursor: pointer;
@@ -392,7 +401,6 @@
         border: 1px solid #cfdcec;
         background-color: #fff;
       }
-
       .todo-checkbox:checked + label:after{
         position: absolute;
         content: '';
@@ -405,16 +413,13 @@
         transform-origin: center center;
         transform: rotate(-45deg) translate(-50%, -50%);
       }
-
       .todo-checkbox:checked + label:after{
         display: block;
       }
-
       .todo-checkbox:checked ~ .todo-text{
         color: #888;
         text-decoration: line-through
       }
-
       .status.free{
         font-weight: bold;
         text-align: center;
@@ -424,21 +429,16 @@
         display: block;
         width: 50px;
         margin: 10px auto;
-        vertical-align: middle;
       }
-
       .todo-item-enter-active, .todo-item-leave-active {
         transition: opacity ease 0.25s, transform ease-in-out 0.3s;
         transform-origin: left center;
       }
-
       /* .todo-item-leave-active below version 2.1.8 */
       .todo-item-enter, .todo-item-leave-to {
         opacity: 0;
         transform: translateX(100%);
       }
-
-
       .slide-fade-enter-active, .slide-fade-leave-active {
         transition: all 0.3s ease;
       }
@@ -447,8 +447,12 @@
         transform: scale(1.1);
         opacity: 0;
       }
-
-
     </style>
-</body>
+
+    </nav>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html>
