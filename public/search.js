@@ -13,22 +13,24 @@ var courses = [
     { 'topic': 'Fan Club', 'location': 'Birkikara', 'price': 140 },
     { 'topic': 'Debate', 'location': 'll-Marsa', 'price': 120 },
     { 'topic': 'Yearbook', 'location': 'in-Naxxar', 'price': 140 }
-    
-    ]
-    filterApp = new Vue({
-    el: '#filter',
-    data: {
-    courses: courses,
-    selectedTopic: [],
-    selectedLocation: [],
-    },
-    computed: {
-    topics: function () { // return an array of all the topics
-    return [...new Set(this.courses.map(x => x.topic))]
-    },
-    locations: function () {
-    return [...new Set(this.courses.map(x => x.location))]
-    }
-    }
-})
+]
 
+filterApp = new Vue
+({
+    el: '#filter',
+    data:
+        {
+            courses: courses,
+            selectedTopic: [],
+            selectedLocation: [],
+        },
+    computed:
+        {
+            topics: function () { // return an array of all the topics
+                return [...new Set(this.courses.map(x => x.topic))]
+            },
+            locations: function () {
+                return [...new Set(this.courses.map(x => x.location))]
+            }
+        },
+})

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple">
@@ -55,76 +55,52 @@
         </ul>
     </div>
 </nav>
-<div id="filter">
-    <h1>Filters</h1>
-    <select  v-model='selectedTopic'>
-        <option v-for='topic in topics'>
-            {{topic}}
-        </option>
-    </select>
-    <p>Selected topics: {{selectedTopic}}</p>
-    <!-- <br> -->
-    <select  v-model='selectedLocation'>
-        <option v-for="location in locations">{{location}}</option>
-    </select>
-    <p>Selected location: {{selectedLocation}}</p>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div id="app">
+    <label><input type="checkbox" v-model="showBlankFruits">Show Blank Fruits</label>
+    <br> <br>
+    <table>
+        <tr> <th class="col">User</th> <th class="col">Fruits</th> <th class="col"></th> </tr>
+        <tr v-for="item in list">
+            <td>{{ item.user }}</td>
+            <td> <span v-for="f in item.fruits"> {{ f.name }} </span> </td>
+            <td> <button @click="delItem(item)">Delete</button> </td>
+        </tr>
+    </table>
 </div>
-<button>reset</button>
-<div id="courseList">
-    <h1>Course list</h1>
-    <div v-for="course in filteredCourses" class="course">
-        <li v-for='(value, name) in course'>{{name}}: {{value}}</li>
-    </div>
 </div>
 
-<script>
-    var courses = [
-        { 'topic': 'Math', 'location': 'Birgu', 'price': 100 },
-        { 'topic': 'Biology', 'location': 'Bormla', 'price': 80 },
-        { 'topic': 'English', 'location': 'Mdina', 'price': 90 },
-        { 'topic': 'Gaming', 'location': 'Qormi', 'price': 120 },
-        { 'topic': 'Dance', 'location': 'Rabat', 'price': 110 },
-        { 'topic': 'Music', 'location': 'Senglea', 'price': 90 },
-        { 'topic': 'Sports', 'location': 'Siggiewi', 'price': 90 },
-        { 'topic': 'Art', 'location': 'Valleta', 'price': 130 },
-        { 'topic': 'Athletics', 'location': 'Zabbar', 'price': 120 },
-        { 'topic': 'Choir', 'location': 'Zebbug', 'price': 140 },
-        { 'topic': 'Band', 'location': 'Zejtun', 'price': 120 },
-        { 'topic': 'Fan Club', 'location': 'Birkikara', 'price': 140 },
-        { 'topic': 'Debate', 'location': 'll-Marsa', 'price': 120 },
-        { 'topic': 'Yearbook', 'location': 'in-Naxxar', 'price': 140 }
-    ]
-    filterApp = new Vue
-    ({
-        el: '#filter',
-        data:
-            {
-                courses: courses,
-                selectedTopic: [],
-                selectedLocation: [],
-            },
-        computed:
-            {
-                topics: function () { // return an array of all the topics
-                    return [...new Set(this.courses.map(x => x.topic))]
-                },
-                locations: function () {
-                    return [...new Set(this.courses.map(x => x.location))]
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    showBlankFruits: true,
+                    mylist: [
+                        {'user': 'Alice', 'fruits': [{'name': 'apple'}]},
+                        {'user': 'Bob', 'fruits': [{'name': 'orange'}]},
+                        {'user': 'Charlie', 'fruits': []},
+                        {'user': 'Denise', 'fruits': [{'name': 'apple'}, {'name': 'orange'}]},
+                    ]
                 }
             },
-    })
+            computed: {
+                list() {
+                    return this.mylist.filter(item => (item.fruits.length > 0 && !this.showBlankFruits) || (item.fruits.length === 0 && this.showBlankFruits))
+                },
+            },
+            methods: {
+                delItem(item) {
+                    let index = this.mylist.indexOf(item);
+                    if (index > -1) {
+                        this.mylist.splice(index, 1);
+                    }
+                }
+            }
+        })
 </script>
-
-<style>
-    .course {
-        border: solid lightblue;
-        /* width: 150px; */
-        display: inline-block;
-        margin: 10px;
-        padding: 10px;
-    }
-</style>
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

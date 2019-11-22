@@ -1,30 +1,35 @@
 const app = new Vue({
     el: '#app',
     data: {
-        title: 'Activities Log',
+        head: 'Activities Log',
         task: [],
-        newTask: ''
+        newTask1: '',
+        newTask2: '',
+        newTask3: ''
     },
     methods: {
         addTask: function() {
             this.task.push({
-                name: this.newTask,
+                title: this.newTask1,
+                location: this.newTask2,
+                price: this.newTask3,
+
                 state: false
             });
             this.newTask = '';
-            localStorage.setItem('gym-vue', JSON.stringify(this.task));
+            localStorage.setItem('admin-vue', JSON.stringify(this.task));
         },
         editTask: function(index){
             this.task[index].state = true;
-            localStorage.setItem('gym-vue', JSON.stringify(this.task));
+            localStorage.setItem('admin-vue', JSON.stringify(this.task));
         },
         deleteTask: function(index){
             this.task.splice(index, 1);
-            localStorage.setItem('gym-vue', JSON.stringify(this.task));
+            localStorage.setItem('admin-vue', JSON.stringify(this.task));
         }
     },
     created: function(){
-        let dataDB = JSON.parse(localStorage.getItem('gym-vue'))
+        let dataDB = JSON.parse(localStorage.getItem('admin-vue'))
         if(dataDB === null){
             this.task = [];
         } else {

@@ -53,13 +53,19 @@
         </div>
     </nav>
     <div class="container mt-5" id="app">
-        <h3 class="text-center"><i class="fas fa-dumbbell"></i> {{ title }}</h3>
+        <h3 class="text-center"><i class="fas fa-dumbbell"></i> {{ head }}</h3>
         <div class="row">
             <div class="col-md-4 offset-md-4 my-4">
                 <div class="card-header">
                     <div class="form-group">
-                        <label>
-                            <input type="text" class="form-control my-3" v-model="newTask" v-on:keyup.enter="addTask">
+                        <label> <h4>Title</h4>
+                            <input type="text" class="form-control my-3" v-model="newTask1" v-on:keyup.enter="addTask">
+                        </label>
+                        <label><h4>Location</h4>
+                            <input type="text" class="form-control my-3" v-model="newTask2" v-on:keyup.enter="addTask">
+                        </label>
+                        <label><h4>Price</h4>
+                            <input type="text" class="form-control my-3" v-model="newTask3" v-on:keyup.enter="addTask">
                         </label>
                     </div>
                     <button class="btn btn-primary btn-block" @click="addTask">Add</button>
@@ -67,7 +73,13 @@
                         <div role="alert" :class="['alert', item.state ? 'alert-success' : 'alert-danger']">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <i class="fas fa-running"></i> {{item.name}}
+                                    <i class="fas fa-running"></i> {{item.title}}
+                                </div>
+                                <div>
+                                    <i class="fas fa-running"></i> {{item.location}}
+                                </div>
+                                <div>
+                                    <i class="fas fa-running"></i> {{item.price}}
                                 </div>
                                 <div>
                                     <button class="btn btn-success btn-sm" @click="editTask(index)">OK</button>
@@ -80,50 +92,7 @@
             </div>
         </div>
     </div>
-    <script>
-        const app = new Vue({
-            el: '#app',
-            data: {
-                title: 'Activities Log',
-                task: [],
-                newTask: ''
-            },
-            methods: {
-                addTask: function() {
-                    this.task.push({
-                        name: this.newTask,
-                        state: false
-                    });
-                    this.newTask = '';
-                    localStorage.setItem('gym-vue', JSON.stringify(this.task));
-                },
-                editTask: function(index){
-                    this.task[index].state = true;
-                    localStorage.setItem('gym-vue', JSON.stringify(this.task));
-                },
 
-                },
-                editTask: function(index){
-                    this.task[index].state = true;
-                    localStorage.setItem('gym-vue', JSON.stringify(this.task));
-                },
-
-                deleteTask: function(index){
-                    this.task.splice(index, 1);
-                    localStorage.setItem('gym-vue', JSON.stringify(this.task));
-                }
-            },
-             function(){
-                let dataDB = JSON.parse(localStorage.getItem('gym-vue'))
-                if(dataDB === null){
-                    this.task = [];
-                } else {
-                    this.task = dataDB;
-                }
-
-
-});
-    </script>
     <script src="../src/crudVue.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
