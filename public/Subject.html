@@ -8,7 +8,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" type ="text/css" href="style.css">
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
@@ -47,11 +46,12 @@
                     <a class="nav-link" href="register.html">Admin</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" tabindex="0">LogOut</a>
+                    <a class="nav-link" href="register.html"   tabindex="0">LogOut</a>
                 </li>
             </ul>
         </div>
     </nav>
+    <h1 style="text-align: center">Admin Portal</h1>
     <div class="container mt-5" id="app">
         <h3 class="text-center"><i class="fas fa-dumbbell"></i> {{ head }}</h3>
         <div class="row">
@@ -78,6 +78,7 @@
                                 <div>
                                     <i class="fas fa-running"></i> {{item.location}}
                                 </div>
+                                <br>
                                 <div>
                                     <i class="fas fa-running"></i> {{item.price}}
                                 </div>
@@ -92,8 +93,14 @@
             </div>
         </div>
     </div>
-
-    <script src="../src/crudVue.js"></script>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        Body{
+            background-image: radial-gradient(circle, #bc7fa2, #af7da7, #9f7bac, #8e7bae, #7a7aaf, #6c81b6, #5c88ba, #4c8ebb, #429dc1, #42acc3, #4fb9c2, #64c6bf);}
+    </style>
+    <script src="crudVue.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

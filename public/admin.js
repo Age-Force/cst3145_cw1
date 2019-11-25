@@ -25,7 +25,7 @@ var signupApp = new Vue({
                 Admin.push({'username':newUsername, 'name':newName,'email': newEmail, 'password': this.password});
                 localStorage.setItem('Admin', JSON.stringify(Admin));
                 window.location.replace ("Subject.html");
-                alert("welcome to AFTER SCHOOL EXTRAS ")
+                alert("welcome to AFTER SCHOOL EXTRAS")
                 return false;
             }
             else {

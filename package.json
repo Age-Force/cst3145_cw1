@@ -13,6 +13,7 @@
     "chrome-devtools-frontend": "^1.0.708769",
     "core-js": "^3.3.5",
     "moment": "^2.24.0",
+    "solid-vue-components.logout-button": "0.0.5",
     "vue": "^2.6.10",
     "vuex": "^3.0.1"
   },

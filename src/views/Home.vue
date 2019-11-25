@@ -2,8 +2,8 @@
   <div class="home">
     <br>
     <br>
-    <img alt="Vue logo" src="../assets/logo1.png">
-    <HelloWorld msg="Welcome to After School Extras"/>
+    <img alt="Vue logo" src="../../public/images/logo1.png">
+    <HelloWorld msg="After School Extras"/>
   </div>
 </template>
 
